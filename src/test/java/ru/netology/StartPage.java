@@ -8,8 +8,8 @@ import static com.codeborne.selenide.Selenide.$$;
 
 public class StartPage {
     private final SelenideElement heading = $(".heading").shouldBe(Condition.text("Путешествие дня"));
-    private final SelenideElement buttonBuy = $(".button").shouldBe(Condition.text("Купить"));
-    private final SelenideElement buttonBuyInCredit = $(".button").shouldBe(Condition.text("Купить в кредит")) ;
+    private final SelenideElement buttonBuy = $$("button").findBy(Condition.text("Купить"));
+    private final SelenideElement buttonBuyInCredit = $$("button").findBy(Condition.text("Купить в кредит")) ;
     public void startPage() {
         heading.shouldBe(Condition.visible);
     }

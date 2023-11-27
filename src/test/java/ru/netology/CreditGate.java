@@ -6,28 +6,28 @@ import ru.netology.data.DataHelper;
 
 import java.time.Duration;
 
+import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 public class CreditGate {
     private final SelenideElement heading = $$(".heading").findBy(Condition.text("Кредит по данным карты"));
     SelenideElement form = $(".form");
-
-    private SelenideElement cardNumberField = form.$("input[placeholder='0000 0000 0000 0000']");
+    private final SelenideElement cardNumberField = form.$("input[placeholder='0000 0000 0000 0000']");
     private final SelenideElement monthField = form.$("input[placeholder='08']");
     private final SelenideElement yearField = form.$("input[placeholder='22']");
-    private final SelenideElement cardHolderField = form.$("input_type_text");
+    private final SelenideElement cardHolderField = $(byXpath("/html/body/div/div/form/fieldset/div[3]/span/span[1]/span/span/span[2]/input"));
     private final SelenideElement cvcField = form.$("input[placeholder='999']");
     private final SelenideElement buttonContinue = form.$$("button").findBy(Condition.text("Продолжить"));
-    private final SelenideElement notificationGood = form.$(".notification_status_ok");
-    private final SelenideElement notificationError = form.$("notification_status_error");
+    private final SelenideElement notificationGood = $(".notification_status_ok");
+    private final SelenideElement notificationError = $(".notification_status_error");
 
     public void PaymentGate() {
         heading.shouldBe(Condition.visible);
     }
 
     public void setCardNumber(DataHelper.cardNumber number) {
-        cardHolderField.setValue(String.valueOf(number));
+        cardNumberField.setValue(String.valueOf(number));
     }
 
     public void setMonth(String month) {
@@ -51,11 +51,11 @@ public class CreditGate {
     }
 
     public void checkNotificationGood() {
-        notificationGood.shouldBe(Condition.visible, Duration.ofSeconds(15)).shouldHave(Condition.exactText("Успешно" + "Операция одобрена Банком"));
+        notificationGood.shouldBe(Condition.visible, Duration.ofSeconds(15)).shouldHave(Condition.exactText("Успешно\n " + "Операция одобрена Банком"));
     }
 
     public void checkNotificationError() {
-        notificationError.shouldBe(Condition.visible, Duration.ofSeconds(15)).shouldHave(Condition.exactText("Ошибка" + "Ошибка! Банк отказал в проведении операции."));
+        notificationError.shouldBe(Condition.visible, Duration.ofSeconds(15)).shouldHave(Condition.exactText("Ошибка\n " + "Ошибка! Банк отказал в проведении операции."));
     }
 
     public void checkNotificationInvalidFormat() {

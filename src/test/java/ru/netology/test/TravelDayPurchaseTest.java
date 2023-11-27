@@ -21,7 +21,11 @@ public class TravelDayPurchaseTest {
     @AfterAll
     static void tearDownAll() {
         SelenideLogger.removeListener("allure");
+    }
 
+    @AfterAll
+    static void teardown() {
+        SQLHelper.cleanDatabase();
     }
 
     @BeforeEach
@@ -49,6 +53,7 @@ public class TravelDayPurchaseTest {
         String expected = "APPROVED";
         assertEquals(expected, actual);
     }
+
     @Test
     @Order(2)
     @DisplayName("All fields are filled with valid data(PaymentPage, ENG)")
@@ -68,6 +73,7 @@ public class TravelDayPurchaseTest {
         String expected = "APPROVED";
         assertEquals(expected, actual);
     }
+
     @Test
     @Order(3)
     @DisplayName("All fields are filled with valid data(CreditPage, RUS)")
@@ -87,6 +93,7 @@ public class TravelDayPurchaseTest {
         String expected = "APPROVED";
         assertEquals(expected, actual);
     }
+
     @Test
     @Order(4)
     @DisplayName("All fields are filled with valid data(CreditPage, ENG)")
@@ -108,7 +115,7 @@ public class TravelDayPurchaseTest {
     }
 
     // negative test
-    @Test
+    @Test //bug
     @Order(5)
     @DisplayName("All fields are filled with valid data and invalid card(PaymentGate, RUS)")
     void paymentFormShouldHaveAllValidFieldBlockedCardRUS() {
@@ -128,7 +135,7 @@ public class TravelDayPurchaseTest {
         assertEquals(expected, actual);
     }
 
-    @Test
+    @Test //bug
     @Order(6)
     @DisplayName("All fields are filled with valid data and invalid card(PaymentGate, ENG)")
     void paymentFormShouldHaveAllValidFieldBlockedCardENG() {
@@ -149,7 +156,7 @@ public class TravelDayPurchaseTest {
     }
 
     @Test
-    @Order(7)
+    @Order(7) //bug
     @DisplayName("All fields are filled with valid data and invalid card(CreditPage, RUS)")
     void creditFormShouldHaveAllValidFieldBlockedCardRUS() {
         StartPage start = new StartPage();
@@ -168,7 +175,7 @@ public class TravelDayPurchaseTest {
         assertEquals(expected, actual);
     }
 
-    @Test
+    @Test //bug
     @Order(8)
     @DisplayName("All fields are filled with valid data and invalid card(CreditPage, ENG)")
     void creditFormShouldHaveAllValidFieldBlockedCardENG() {
@@ -189,7 +196,7 @@ public class TravelDayPurchaseTest {
     }
 
     // negative tests
-    @Test
+    @Test //bug
     @Order(1)
     @DisplayName("All fields are empty(PaymentGate)")
     void paymentFormShouldHaveAllEmptyField() {
@@ -200,10 +207,10 @@ public class TravelDayPurchaseTest {
         paymentGate.buttonContinueClick();
         paymentGate.checkNotificationRequiredField();
         String actual = SQLHelper.getPaymentStatus();
-        assertNull(actual);
+        assertEquals(null, actual);
     }
 
-    @Test
+    @Test //bug
     @Order(2)
     @DisplayName("All fields are empty(CreditGate)")
     void CreditFormShouldHaveAllEmptyField() {
@@ -214,7 +221,7 @@ public class TravelDayPurchaseTest {
         creditGate.buttonContinueClick();
         creditGate.checkNotificationRequiredField();
         String actual = SQLHelper.getCreditStatus();
-        assertNull(actual);
+        assertEquals(null, actual);
     }
 
     @Test
@@ -449,7 +456,6 @@ public class TravelDayPurchaseTest {
         StartPage start = new StartPage();
         start.startPage();
         var paymentGate = start.buy();
-
 
         paymentGate.setCardNumber(DataHelper.getValidWorkingCard());
         paymentGate.setMonth(DataHelper.getValidMonth());
