@@ -51,7 +51,7 @@ public class CreditGate {
     }
 
     public void checkNotificationGood() {
-        notificationGood.shouldBe(Condition.visible, Duration.ofSeconds(15)).shouldHave(Condition.exactText("Успешно\n " + "Операция одобрена Банком"));
+        notificationGood.shouldBe(Condition.visible, Duration.ofSeconds(15)).shouldHave(Condition.exactText("Успешно\n " + "Операция одобрена Банком."));
     }
 
     public void checkNotificationError() {
@@ -71,7 +71,7 @@ public class CreditGate {
     }
 
     public void checkNotificationCardExpired() {
-        $(".input__sub").shouldBe(Condition.visible).shouldHave(Condition.exactText("Срок действия карты истек"));
+        $(".input__sub").shouldBe(Condition.visible).shouldHave(Condition.exactText("Истёк срок действия карты"));
     }
 
     public void checkNotificationErrorFullNameCardholder() {

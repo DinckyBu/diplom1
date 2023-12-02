@@ -9,6 +9,7 @@ import java.time.Duration;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
+import static java.time.Duration.*;
 
 public class PaymentGate {
     private final SelenideElement heading = $$(".heading").findBy(Condition.text("Оплата по карте"));
@@ -51,11 +52,11 @@ public class PaymentGate {
     }
 
     public void checkNotificationGood() {
-        notificationGood.shouldBe(Condition.visible, Duration.ofSeconds(15)).shouldHave(Condition.exactText("Успешно\n " + "Операция одобрена Банком"));
+        notificationGood.shouldBe(Condition.visible, ofSeconds(15)).shouldHave(Condition.exactText("Успешно\n " + "Операция одобрена Банком"));
     }
 
     public void checkNotificationError() {
-        notificationError.shouldBe(Condition.visible, Duration.ofSeconds(15)).shouldHave(Condition.exactText("Ошибка\n " + "Ошибка! Банк отказал в проведении операции."));
+        notificationError.shouldBe(Condition.visible, ofSeconds(15)).shouldHave(Condition.exactText("Ошибка\n " + "Ошибка! Банк отказал в проведении операции."));
     }
 
     public void checkNotificationInvalidFormat() {
@@ -71,7 +72,7 @@ public class PaymentGate {
     }
 
     public void checkNotificationCardExpired() {
-        $(".input__sub").shouldBe(Condition.visible).shouldHave(Condition.exactText("Срок действия карты истек"));
+        $(".input__sub").shouldBe(Condition.visible).shouldHave(Condition.exactText("Истёк срок действия карты"));
     }
 
     public void checkNotificationErrorFullNameCardholder() {

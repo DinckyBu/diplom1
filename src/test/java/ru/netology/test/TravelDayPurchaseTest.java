@@ -25,7 +25,8 @@ public class TravelDayPurchaseTest {
 
     @AfterAll
     static void teardown() {
-        SQLHelper.cleanDatabase();
+        SQLHelper.
+                cleanDatabase();
     }
 
     @BeforeEach
@@ -113,8 +114,6 @@ public class TravelDayPurchaseTest {
         String expected = "APPROVED";
         assertEquals(expected, actual);
     }
-
-    // negative test
     @Test //bug
     @Order(5)
     @DisplayName("All fields are filled with valid data and invalid card(PaymentGate, RUS)")
@@ -751,7 +750,7 @@ public class TravelDayPurchaseTest {
         var paymentGate = start.buy();
 
         paymentGate.setCardNumber(DataHelper.getValidWorkingCard());
-        paymentGate.setMonth(DataHelper.getValidMonth());
+        paymentGate.setMonth(DataHelper.getInvalidMonthAboveYear());
         paymentGate.setYear(DataHelper.getValidYear());
         paymentGate.setCardHolder(DataHelper.getValidCardHolderENG());
         paymentGate.setCvc(DataHelper.getValidCVCCode());
@@ -1060,7 +1059,7 @@ public class TravelDayPurchaseTest {
         paymentGate.setCardHolder(DataHelper.getValidCardHolderENG());
         paymentGate.setCvc(DataHelper.getValidCVCCode());
         paymentGate.buttonContinueClick();
-        paymentGate.checkNotificationIncorrectExpirationDate();
+        paymentGate.checkNotificationCardExpired();
         String actual = SQLHelper.getPaymentStatus();
         assertEquals(null, actual);
     }
@@ -1079,7 +1078,7 @@ public class TravelDayPurchaseTest {
         creditGate.setCardHolder(DataHelper.getValidCardHolderRus());
         creditGate.setCvc(DataHelper.getValidCVCCode());
         creditGate.buttonContinueClick();
-        creditGate.checkNotificationIncorrectExpirationDate();
+        creditGate.checkNotificationCardExpired();
         String actual = SQLHelper.getCreditStatus();
         assertEquals(null, actual);
     }
@@ -1098,7 +1097,7 @@ public class TravelDayPurchaseTest {
         creditGate.setCardHolder(DataHelper.getValidCardHolderENG());
         creditGate.setCvc(DataHelper.getValidCVCCode());
         creditGate.buttonContinueClick();
-        creditGate.checkNotificationIncorrectExpirationDate();
+        creditGate.checkNotificationCardExpired();
         String actual = SQLHelper.getCreditStatus();
         assertEquals(null, actual);
     }
@@ -1693,7 +1692,7 @@ public class TravelDayPurchaseTest {
     }
 
     @Test
-    @Order(76)
+    @Order(80)
     @DisplayName("Invalid CVC code? rest fields are filled with valid data(PaymentGate)")
     void paymentFormShouldHaveInvalidCVCCodeRestFieldValidENG() {
         StartPage start = new StartPage();
@@ -1712,7 +1711,7 @@ public class TravelDayPurchaseTest {
     }
 
     @Test
-    @Order(77)
+    @Order(81)
     @DisplayName("Invalid CVC code, rest fields are filled with valid data(CreditGate)")
     void creditFormShouldHaveInvalidCVCCodeRestFieldValidRus() {
         StartPage start = new StartPage();
@@ -1731,7 +1730,7 @@ public class TravelDayPurchaseTest {
     }
 
     @Test
-    @Order(78)
+    @Order(82)
     @DisplayName("Invalid CVC code, rest fields are filled with valid data(CreditGate)")
     void creditFormShouldHaveInvalidCVCCodeRestFieldValidENG() {
         StartPage start = new StartPage();
