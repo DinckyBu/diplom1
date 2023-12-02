@@ -1,9 +1,11 @@
 # Документация
 [План тестирования](https://github.com/DinckyBu/diplom1/blob/main/Plan.md)
+
 [Отчёт по итогам тестирования](https://github.com/DinckyBu/diplom1/blob/main/documentation/Report.md)
+
 [Отчет по итогам автоматизации](https://github.com/DinckyBu/diplom1/blob/main/documentation/Summary.md)
 
-# # Задача:
+# Задача:
 
 Протестировать приложение веб-сервиса "Путешествие дня". Автоматизировать позитивные и негативные сценарии сервиса покупки тура, взаимодействубщего с СУБД и API Банка.
 
